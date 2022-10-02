@@ -130,7 +130,23 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("knox.auth.TokenAuthentication",),
+    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 
+from datetime import timedelta
+from rest_framework.settings import api_settings
+
+REST_KNOX = {
+    "SECURE_HASH_ALGORITHM": "cryptography.hazmat.primitives.hashes.SHA512",
+    "AUTH_TOKEN_CHARACTER_LENGTH": 64,
+    "TOKEN_TTL": timedelta(hours=10),
+    #   'USER_SERIALIZER': 'knox.serializers.UserSerializer',
+    "TOKEN_LIMIT_PER_USER": None,
+    "AUTO_REFRESH": False,
+    "EXPIRY_DATETIME_FORMAT": api_settings.DATETIME_FORMAT,
+}
 
 AUTH_USER_MODEL = "blogauthentication.User"
 
@@ -142,6 +158,7 @@ from django.utils.log import DEFAULT_LOGGING
 logger = logging.getLogger(__name__)
 
 LOG_LEVEL = "INFO"
+
 
 logging.config.dictConfig(
     {
