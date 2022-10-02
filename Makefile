@@ -45,7 +45,7 @@ test-html:
 	docker compose exec api pytest -p no:warnings --cov=. --cov-report html
 
 test-html-local:
-	pytest -p no:warnings --cov=. --cov-report html
+	pytest -p no:warnings  --cov=. --cov-report html
 
 
 flake8:
