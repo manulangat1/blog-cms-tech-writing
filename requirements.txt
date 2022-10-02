@@ -1,0 +1,9 @@
+django
+pre-commit==2.20.0
+pytest-django==4.5.2
+pytest-factoryboy==2.5.0
+Faker==8.9.1
+pytest-cov==2.12.1
+djangorestframework
+django-rest-knox==4.2.0
+drf-yasg
