@@ -41,11 +41,21 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = ["apps.blogs", "apps.blogauthentication"]
+LOCAL_APPS = ["apps.blogs", "apps.blogauthentication", "apps.common"]
 
 THIRD_PARTY_APPS = ["rest_framework", "knox", "drf_yasg"]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+print(INSTALLED_APPS)
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "knox.auth.TokenAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
+    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 
 
 MIDDLEWARE = [
@@ -130,10 +140,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("knox.auth.TokenAuthentication",),
-    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
-}
+
 
 from datetime import timedelta
 from rest_framework.settings import api_settings
@@ -145,7 +152,7 @@ REST_KNOX = {
     #   'USER_SERIALIZER': 'knox.serializers.UserSerializer',
     "TOKEN_LIMIT_PER_USER": None,
     "AUTO_REFRESH": False,
-    "EXPIRY_DATETIME_FORMAT": api_settings.DATETIME_FORMAT,
+    # "EXPIRY_DATETIME_FORMAT": api_settings.DATETIME_FORMAT,
 }
 
 AUTH_USER_MODEL = "blogauthentication.User"

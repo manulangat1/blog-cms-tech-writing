@@ -21,7 +21,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("apps.blogauthentication.urls")),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("blog/", include("apps.blogs.urls")),
+    # path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),

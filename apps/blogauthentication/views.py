@@ -45,6 +45,11 @@ class LoginAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
+        print(user)
+        token = AuthToken.objects.create(user)
+
+        print(token)
+        print(token[1])
         return Response(
             {
                 # "message":"success"
@@ -64,9 +69,5 @@ class UserAPI(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
 
     def get_object(self):
+        print("here now i am")
         return self.request.user
-
-    # def update(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     print(instance)
-    #     return Response({"Added successfully"})
