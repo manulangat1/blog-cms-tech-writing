@@ -6,3 +6,4 @@ Faker==8.9.1
 pytest-cov==2.12.1
 djangorestframework
 django-rest-knox==4.2.0
+drf-yasg

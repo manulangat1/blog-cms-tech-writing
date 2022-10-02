@@ -43,7 +43,7 @@ DJANGO_APPS = [
 
 LOCAL_APPS = ["apps.blogs", "apps.blogauthentication"]
 
-THIRD_PARTY_APPS = ["rest_framework", "knox"]
+THIRD_PARTY_APPS = ["rest_framework", "knox", "drf_yasg"]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
