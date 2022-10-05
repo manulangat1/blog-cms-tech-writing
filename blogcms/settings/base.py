@@ -10,6 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from django.utils.log import DEFAULT_LOGGING
+import logging.config
+import logging
+from rest_framework.settings import api_settings
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,7 +48,7 @@ DJANGO_APPS = [
 
 LOCAL_APPS = ["apps.blogs", "apps.blogauthentication", "apps.common"]
 
-THIRD_PARTY_APPS = ["rest_framework", "knox", "drf_yasg"]
+THIRD_PARTY_APPS = ["rest_framework", "knox", "drf_yasg", "corsheaders"]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 print(INSTALLED_APPS)
@@ -59,6 +64,7 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -69,7 +75,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "blogcms.urls"
-
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -142,9 +153,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-from datetime import timedelta
-from rest_framework.settings import api_settings
-
 REST_KNOX = {
     "SECURE_HASH_ALGORITHM": "cryptography.hazmat.primitives.hashes.SHA512",
     "AUTH_TOKEN_CHARACTER_LENGTH": 64,
@@ -157,10 +165,6 @@ REST_KNOX = {
 
 AUTH_USER_MODEL = "blogauthentication.User"
 
-import logging
-import logging.config
-
-from django.utils.log import DEFAULT_LOGGING
 
 logger = logging.getLogger(__name__)
 

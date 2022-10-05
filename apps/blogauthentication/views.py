@@ -23,6 +23,7 @@ class RegisterAPI(generics.GenericAPIView):
 
     serializer_class = RegisterSerilizer
     # parser_classes = (MultiPartParser, FormParser)
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -42,24 +43,28 @@ class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
+        print(request.data)
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        print(user)
-        token = AuthToken.objects.create(user)
+        if serializer.is_valid():
+            print(serializer.is_valid())
+            print(serializer.validated_data)
+            user = serializer.validated_data
+            print(user)
+            token = AuthToken.objects.create(user)
 
-        print(token)
-        print(token[1])
-        return Response(
-            {
-                # "message":"success"
-                "user": UserSerializer(
-                    user, context=self.get_serializer_context()
-                ).data,
-                "token": AuthToken.objects.create(user)[1],
-            },
-            status=status.HTTP_200_OK,
-        )
+            print(token)
+            print(token[1])
+            return Response(
+                {
+                    "message": "success",
+                    "user": UserSerializer(
+                        user, context=self.get_serializer_context()
+                    ).data,
+                    "token": AuthToken.objects.create(user)[1],
+                },
+                status=status.HTTP_200_OK,
+            )
+        return Response(serializer.errors)
 
 
 class UserAPI(generics.RetrieveUpdateAPIView):
