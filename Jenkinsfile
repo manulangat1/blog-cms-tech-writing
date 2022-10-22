@@ -8,5 +8,12 @@ pipeline{
                 }
             }
         }
+        stage("Running the server "){
+            steps{
+                script{
+                    echo "Hello world, here i am"
+                }
+            }
+        }
     }
 }
