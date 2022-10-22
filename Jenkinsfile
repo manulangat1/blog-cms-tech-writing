@@ -12,7 +12,7 @@ pipeline{
             steps{
                 script{
                     echo "Hello world, here i am"
-                    sh "docker ps"
+                    // sh "docker ps"
                 }
             }
         }
@@ -22,6 +22,11 @@ pipeline{
                     echo "Hello world, here i am"
                 }
             }
+        }
+    }
+    post{
+        always{
+            echo "Hello there"
         }
     }
 }
