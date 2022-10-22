@@ -1,10 +1,11 @@
 pipeline{
-    agent: any
-
+    agent any
     stages{
-        step("Build"){
-            script{
-                echo "Helo world"
+        stage("Init stage") {
+            steps {
+                script {
+                    echo "Hello world ${BRANCH_NAME}"
+                }
             }
         }
     }
