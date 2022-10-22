@@ -9,13 +9,13 @@ build:
 	docker compose up --build -d --remove-orphans
 
 up:
-	docker compose up -d
+	docker compose -f docker-compose.dev.yaml  up --build -d
 
 down:
-	docker compose down
+	docker compose -f docker-compose.dev.yaml down
 
 show-logs:
-	docker compose logs
+	docker compose -f docker-compose.dev.yaml  logs -f
 
 migrate:
 	docker compose exec api python3 manage.py migrate

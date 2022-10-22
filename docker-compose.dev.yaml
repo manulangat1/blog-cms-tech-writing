@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:  gunicorn blogcms.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/app/web/staticfiles
+    expose:
+      - 8000
+    networks:
+      - blogcms
+    env_file:
+      - ./.env
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/app/web/staticfiles
+    ports:
+      - "1338:80"
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - blogcms
+volumes:
+   static_volume:
+networks:
+  blogcms:

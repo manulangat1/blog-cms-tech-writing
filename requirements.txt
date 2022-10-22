@@ -8,3 +8,6 @@ djangorestframework
 django-rest-knox==4.2.0
 drf-yasg
 django-cors-headers==3.13.0
+requests
+python-decouple
+gunicorn
