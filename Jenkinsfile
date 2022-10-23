@@ -22,9 +22,9 @@ pipeline{
                     withCredentials([usernamePassword(credentialsId:"dockerhub-repo", usernameVariable:"USER", passwordVariable:"PASSWORD")]) {
                         sh '''
                         docker system prune -a -f
-                        docker compose -f docker-compose.dev.yaml up --build   -d
+                        docker-compose -f docker-compose.dev.yaml up --build   -d
                         echo $PASS | docker login --u $USER --password-stdin
-                        docker compose -f docker-compose.dev.yaml push
+                        docker-compose -f docker-compose.dev.yaml push
                          '''
                     }
                     echo "Hello world, here i am"
