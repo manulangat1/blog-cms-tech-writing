@@ -16,16 +16,6 @@ pipeline{
                 }
             }
         }
-        // stage('SonarQube Analysis') {
-        //         steps {
-        //             script {
-        //                 def scannerHome = tool 'SonarScanner';
-        //                     withSonarQubeEnv() {
-        //                     sh "${scannerHome}/bin/sonar-scanner"
-        //                     }
-        //             }
-        //         }
-        //     }
         stage("Login to dockerhub and push the images"){
             steps{
                 script{
@@ -41,6 +31,20 @@ pipeline{
                         // '''
                     }
                     echo "Hello world, here i am"
+                }
+            }
+        }
+        stage("Deploy to ec2 instance and run the app") {
+            steps{
+                script{
+                    def dockerCmd = 'ls'
+                    sshagent(['ec2-server-key']) {
+                        // some block
+                        sh '''
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.80.45.214  ${dockerCmd}
+
+                        '''
+                    }
                 }
             }
         }
