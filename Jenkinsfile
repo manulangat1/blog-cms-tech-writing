@@ -37,12 +37,10 @@ pipeline{
         stage("Deploy to ec2 instance and run the app") {
             steps{
                 script{
-                    def dockerCmd = 'ls'
+                    def dockerCmd = 'docker-compose --version'
                     sshagent(['ec2-server-key']) {
-                        // some block
                         sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@3.80.45.214  ${dockerCmd}
-
                         '''
                     }
                 }
