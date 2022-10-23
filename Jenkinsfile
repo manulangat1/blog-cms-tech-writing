@@ -16,9 +16,17 @@ pipeline{
                 }
             }
         }
-        stage("Running the server 3 "){
+        stage("Login to dockerhub and push the images"){
             steps{
                 script{
+                    withCredentials([usernamePassword(credentialsId:"dockerhub-repo", usernameVariable:"USER", passwordVariable:"PASSWORD")]) {
+                        sh '''
+                        docker system prune -a -f
+                        docker compose -f docker-compose.dev.yaml up -d
+                        echo $PASS | docker login --u $USER --password-stdin
+                        docker compose -f docker-compose.dev.yaml push
+                         '''
+                    }
                     echo "Hello world, here i am"
                 }
             }
