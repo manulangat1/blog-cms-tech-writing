@@ -42,10 +42,12 @@ RUN mkdir $APP_HOME/logs
 COPY /entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
+RUN /entrypoint
 
 COPY /start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
+RUN /start
 
 # RUN  python3 manage.py migrate --no-input
 # RUN python3 manage.py collectstatic --noinput
