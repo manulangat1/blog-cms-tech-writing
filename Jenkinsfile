@@ -39,11 +39,14 @@ pipeline{
                 script{
                     def dockerCmd = 'docker-compose -f docker-compose.prod.yaml up -d --build'
                     // def dockerCmd = 'docker run redis'
+                    def shellCmd  = "bash ./server-commands.sh"
                     sshagent(['ec2-server-key']) {
                         sh '''
+                        scp server-commands ec2-user@3.80.45.214:/home/ec2-user
                         scp docker-compose.prod.yaml ec2-user@3.80.45.214:/home/ec2-user
-                        ssh -t -o StrictHostKeyChecking=no ec2-user@3.80.45.214  ${dockerCmd}
+
                         '''
+                        sh "ssh  -o StrictHostKeyChecking=no ec2-user@3.80.45.214  ${shellCmd}"
                     }
                 }
             }
