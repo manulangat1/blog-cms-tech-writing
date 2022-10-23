@@ -11,8 +11,11 @@ services:
       - 8000
     networks:
       - blogcms
-    env_file:
-      - ./.env
+    # env_file:
+    #   - ./.env
+    environment:
+      - MEDIUM_API_TOKEN="hello world"
+      - HASHNODE_API_TOKEN="hello world"
   nginx:
     build:
       context: ./nginx
