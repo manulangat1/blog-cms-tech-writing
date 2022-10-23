@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     command:  gunicorn blogcms.wsgi:application --bind 0.0.0.0:8000
+    image: manulangat/blog-cms:1.0
     volumes:
       - static_volume:/app/web/staticfiles
     expose:
@@ -22,6 +23,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - static_volume:/app/web/staticfiles
+    image: manulangat/blog-cms-nginx:1.0
     ports:
       - "1338:80"
     depends_on:
