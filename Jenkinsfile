@@ -19,13 +19,16 @@ pipeline{
         stage("Login to dockerhub and push the images"){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId:"dockerhub-repo", usernameVariable:"USER", passwordVariable:"PASSWORD")]) {
+                    withCredentials([usernamePassword(credentialsId:"dockerhub-repo", usernameVariable:"USER", passwordVariable:"PASS")]) {
+                        // sh '''
+                        // docker system prune -a -f
+                        // docker-compose -f docker-compose.dev.yaml up --build   -d
+                        // echo $PASS | docker login -u $USER --password-stdin
+                        // docker-compose -f docker-compose.dev.yaml push
+                        //  '''
                         sh '''
-                        docker system prune -a -f
-                        docker-compose -f docker-compose.dev.yaml up --build   -d
-                        echo $PASS | docker login -u $USER --password-stdin
-                        docker-compose -f docker-compose.dev.yaml push
-                         '''
+                         echo $PASS | docker login -u $USER --password-stdin
+                        '''
                     }
                     echo "Hello world, here i am"
                 }
