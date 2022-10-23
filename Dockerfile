@@ -35,7 +35,7 @@ COPY requirements.txt $APP_HOME/requirements.txt
 
 COPY . $APP_HOME/
 RUN pip3 install -r $APP_HOME/requirements.txt
-# RUN mkdir $APP_HOME/logs
+RUN mkdir $APP_HOME/logs
 
 
 COPY /entrypoint /entrypoint
