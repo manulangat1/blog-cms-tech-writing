@@ -43,8 +43,6 @@ pipeline{
                         sh '''
                         scp docker-compose.dev.yaml ec2-user@3.80.45.214:/home/ec2-user
                         ssh -o StrictHostKeyChecking=no ec2-user@3.80.45.214  ${dockerCmd}
-                        cd be
-                        ls
                         '''
                     }
                 }
