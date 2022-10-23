@@ -37,11 +37,14 @@ pipeline{
         stage("Deploy to ec2 instance and run the app") {
             steps{
                 script{
-                    // def dockerCmd = 'docker-compose --version'
-                    def dockerCmd = 'docker run redis'
+                    def dockerCmd = 'docker-compose -f docker-compose.dev.yaml up -d --build'
+                    // def dockerCmd = 'docker run redis'
                     sshagent(['ec2-server-key']) {
                         sh '''
+                        scp docker-compose.dev.yaml ec2-user@3.80.45.214:/home/ec2-user
                         ssh -o StrictHostKeyChecking=no ec2-user@3.80.45.214  ${dockerCmd}
+                        cd be
+                        ls
                         '''
                     }
                 }
