@@ -16,27 +16,16 @@ pipeline{
                 }
             }
         }
-        stage('SonarQube Analysis') {
-                steps {
-                    script {
-                        def scannerHome = tool 'SonarScanner';
-                            withSonarQubeEnv() {
-                            sh "${scannerHome}/bin/sonar-scanner"
-                            }
-                    }
-                }
-            }
-        // stage("Sonarqube analysis") {
-        //     steps{
-        //         script{
-        //             echo "I am running sonarqube"
-        //             def scannerHome = tool 'SonarScanner'
-        //             withSonarQubeEnv(){
-        //                 sh "${scannerHome}/bin/sonar-scanner"
+        // stage('SonarQube Analysis') {
+        //         steps {
+        //             script {
+        //                 def scannerHome = tool 'SonarScanner';
+        //                     withSonarQubeEnv() {
+        //                     sh "${scannerHome}/bin/sonar-scanner"
+        //                     }
         //             }
         //         }
         //     }
-        // }
         stage("Login to dockerhub and push the images"){
             steps{
                 script{
