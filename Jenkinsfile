@@ -23,7 +23,7 @@ pipeline{
                         sh '''
                         docker system prune -a -f
                         docker-compose -f docker-compose.dev.yaml up --build   -d
-                        echo $PASS | docker login --u $USER --password-stdin
+                        echo $PASS | docker login -u $USER --password-stdin
                         docker-compose -f docker-compose.dev.yaml push
                          '''
                     }
