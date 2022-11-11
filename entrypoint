@@ -27,6 +27,9 @@ set -o nounset
 # >&2 echo "Postgres is up - continuing..."
 
 
+
 echo "I am ready and running.."
+
+gunicorn blogcms.wsgi:application --bind 0.0.0.0:8000
 
 exec "$@"
