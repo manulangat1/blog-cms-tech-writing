@@ -1,0 +1,37 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:  gunicorn blogcms.wsgi:application --bind 0.0.0.0:8000
+    image: manulangat/blog-cms:1.0
+    volumes:
+      - static_volume:/app/web/staticfiles
+    expose:
+      - 8000
+    networks:
+      - blogcms
+    # env_file:
+    #   - ./.env
+    environment:
+      - MEDIUM_API_TOKEN="hello world"
+      - HASHNODE_API_TOKEN="hello world"
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/app/web/staticfiles
+    image: manulangat/blog-cms-nginx:1.0
+    ports:
+      - "1338:80"
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - blogcms
+volumes:
+   static_volume:
+networks:
+  blogcms:
