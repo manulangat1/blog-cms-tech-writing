@@ -16,24 +16,24 @@ pipeline{
                 }
             }
         }
-        stage("Login to dockerhub and push the images"){
-            steps{
-                script{
-                    withCredentials([usernamePassword(credentialsId:"dockerhub-repo", usernameVariable:"USER", passwordVariable:"PASS")]) {
-                        sh '''
-                        docker system prune -a -f
-                        docker-compose -f docker-compose.dev.yaml up --build   -d
-                        echo $PASS | docker login -u $USER --password-stdin
-                        docker-compose -f docker-compose.dev.yaml push
-                         '''
-                        // sh '''
-                        //  echo $PASS | docker login -u $USER --password-stdin
-                        // '''
-                    }
-                    echo "Hello world, here i am"
-                }
-            }
-        }
+        // stage("Login to dockerhub and push the images"){
+        //     steps{
+        //         script{
+        //             withCredentials([usernamePassword(credentialsId:"dockerhub-repo", usernameVariable:"USER", passwordVariable:"PASS")]) {
+        //                 sh '''
+        //                 docker system prune -a -f
+        //                 docker-compose -f docker-compose.dev.yaml up --build   -d
+        //                 echo $PASS | docker login -u $USER --password-stdin
+        //                 docker-compose -f docker-compose.dev.yaml push
+        //                  '''
+        //                 // sh '''
+        //                 //  echo $PASS | docker login -u $USER --password-stdin
+        //                 // '''
+        //             }
+        //             echo "Hello world, here i am"
+        //         }
+        //     }
+        // }
         // stage("Deploy to ec2 instance and run the app") {
         //     steps{
         //         script{
@@ -52,10 +52,10 @@ pipeline{
         // }
 
         stage("Deploy to k8s"){
-            // enviroment{
-            //     AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
-            //     AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
-            // }
+            environment{
+                AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+                AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
+            }
             steps{
                 script{
                     echo "Deploying to k8s"
