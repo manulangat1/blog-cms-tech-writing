@@ -59,7 +59,7 @@ pipeline{
             steps{
                 script{
                     echo "Deploying to k8s"
-                    // sh "kubectl create deployment nginx-deployment --image=nginx"
+                    sh "kubectl create deployment nginx-deployment --image=nginx"
                 }
             }
         }
