@@ -33,11 +33,11 @@ RUN pip3 install --upgrade pip
 
 COPY requirements.txt $APP_HOME/requirements.txt
 
-COPY . $APP_HOME/
-RUN pip3 install -r $APP_HOME/requirements.txt
-RUN mkdir $APP_HOME/logs
-# RUN mkdir ${APP_HOME}/logs/blob.log
 
+RUN pip3 install -r $APP_HOME/requirements.txt
+# RUN mkdir $APP_HOME/logs
+# RUN mkdir ${APP_HOME}/logs/blob.log
+COPY . $APP_HOME/
 
 COPY /entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
@@ -50,9 +50,9 @@ RUN chmod +x /start
 RUN /start
 
 # RUN  python3 manage.py migrate --no-input
-# RUN python3 manage.py collectstatic --noinput
+RUN python3 manage.py collectstatic --noinput
 
 
 ENTRYPOINT ["/entrypoint"]
 
-CMD ["gunicorn blogcms.wsgi:application --bind 0.0.0.0:8000"]
+# CMD ["gunicorn blogcms.wsgi:application --bind 0.0.0.0:8000"]

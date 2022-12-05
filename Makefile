@@ -10,7 +10,8 @@ build:
 
 up:
 	docker compose -f docker-compose.dev.yaml  up --build -d
-
+push:
+	docker compose -f docker-compose.dev.yaml  push
 down:
 	docker compose -f docker-compose.dev.yaml down
 

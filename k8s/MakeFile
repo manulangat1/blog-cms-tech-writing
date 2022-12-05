@@ -1,0 +1,5 @@
+start:
+	kubectl delete -f  postgres_vol.yaml 
+	kubectl delete -f  postgres_secret.yaml 
+	kubectl delete -f postgres_depl.yaml 
+	kubectl delete -f app-deploy.yaml

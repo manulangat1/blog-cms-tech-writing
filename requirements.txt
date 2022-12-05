@@ -11,3 +11,4 @@ django-cors-headers==3.13.0
 requests
 python-decouple
 gunicorn
+psycopg2-binary
